@@ -36,22 +36,19 @@ def draw_letters():
         'Z': 1
     }
 
-    letters = list(LETTER_POOL.keys())
-    letters_count = list(LETTER_POOL.values())
-    letters_hand = []
+    letters = [
+       letter 
+       for letter,count in LETTER_POOL.items() 
+       for _ in range(count)
+    ]
     n = 0
+    letter_hand =[]
 
     while n < 10:
         random_index = random.randint(0, len(letters) - 1)
-        letter = letters[random_index]
-        letter_count = letters_count[random_index]
-
-        if letter_count != 0:
-            letters_hand.append(str(letter))
-            letters_count[random_index] -= 1
-            n += 1
-
-    return letters_hand
+        letter_hand.append(letters.pop(random_index))
+        n += 1
+    return letter_hand
 
 
 def uses_available_letters(word, letter_bank):
@@ -140,3 +137,5 @@ def get_highest_word_score(word_list):
                     max_word = word
 
     return (max_word, max_score)
+
+draw_letters()
